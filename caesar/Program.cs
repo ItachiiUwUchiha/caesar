@@ -7,14 +7,21 @@ clearText = clearText.ToUpper();
 string encryptedText = "";
 foreach (char c in clearText)
 {
-    //wyciagamy kod ascii danej litery
-    // w jezyku c# rzutowanie jawne z char na int powoduje pobranie wartosci ascii
-    int asciiCode = (int)c;
-    //dodajemy wartosc klucza
-    asciiCode += 3;
-    char encryptedChar = (char)asciiCode;
-    //dopisujemy do szyfru
-    encryptedText += encryptedChar; 
+    if (c != ' ' && c != ',')
+    {
+        //wyciagamy kod ascii danej litery
+        // w jezyku c# rzutowanie jawne z char na int powoduje pobranie wartosci ascii
+        int asciiCode = (int)c;
+        //dodajemy wartosc klucza
+        asciiCode += 3;
+        //sprawdzamy czy nie przekroczylismy ostatniego znaku (z, 90)
+        if (asciiCode > 90)
+            asciiCode -= 26;
+        //zamieniamy kod z powrotem na znak
+        char encryptedChar = (char)asciiCode;
+        //dopisujemy do szyfru
+        encryptedText += encryptedChar;
+    }
 }
 
 Console.WriteLine("zaszyfrowany tekst: " + encryptedText);
